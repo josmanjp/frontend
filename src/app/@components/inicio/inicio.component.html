@@ -1,0 +1,55 @@
+<div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-6 align-self-center">
+                        <div *ngIf="modoEdit">
+                            <i  class="icon-copy fa fa-plus" href ="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar" style ="cursor:pointer; cursor: hand"></i>
+                            <a> | </a>
+                            <i class="icon-copy fa fa-pencil" href ="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar" style ="cursor:pointer; cursor: hand"></i>
+                        </div>
+                        <div class="left-content header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                            <div class="row">
+                                <div class="col-lg-4 col-sm-4">
+                                    
+                                    <div class="info-stat">  
+                                        
+                                        <h6>Estado:</h6>
+                                        <h4>{{miPortfolio.estado}}</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="info-stat">
+                                        <h6>Precios:</h6>
+                                        <h4>{{miPortfolio.precios}}</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-4">
+                                    <div class="info-stat">
+                                        
+                                        <h6>Soporte</h6>
+                                        <h4>{{miPortfolio.soporte}}</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h2>{{miPortfolio.titulo}} </h2>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="main-green-button scroll-to-section">
+                                        <a href="#contact">Obtenga su Presupuesto</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                            <img src="assets/images/banner-right-image.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

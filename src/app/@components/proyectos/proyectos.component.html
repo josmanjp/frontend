@@ -1,0 +1,89 @@
+<div id="portfolio" class="our-portfolio section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+                    <h6>Mi Portafolio</h6>
+                    <h2>Descubre nuestros mas recientes <em>Proyectos</em> y <span> Soluciones </span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div style ="height: 500px;" class="carousel-inner">
+        <div class="col-lg-12">            
+            <div class="carousel-item active" data-bs-interval="2000">
+                <div *ngIf="modoEdit">
+                <i class="icon-copy fa fa-plus" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"
+                    style="cursor:pointer; cursor: hand"></i>
+                <a> | </a>
+                <i class="icon-copy fa fa-pencil" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
+                    style="cursor:pointer; cursor: hand"></i>
+                <a> | </a>
+                <i class="icon-copy fa fa-trash" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                    style="cursor:pointer; cursor: hand"></i>
+                </div>
+                <div class="item">
+                    <div class="portfolio-item">
+                        <div class="thumb" style="text-align:center;">
+                            <img style="height:500px; width:50%;" src="{{listaProyectos[0].url_imagen}}" alt="">
+                            <div class="carousel-caption d-none d-md-block">
+
+                            </div>
+                            <div class="hover-content" style="height:500px; width:50%;top:0;bottom:0;left: 0;right: 0;margin: auto;">
+                                <div class="inner-content">
+                                    <a href="#">
+                                        <h4>{{listaProyectos[0].titulo}}</h4>        
+                                        <p>{{listaProyectos[0].descripcion}}</p>
+                                    </a>
+                                    <span><a href="{{listaProyectos[0].url}}">{{listaProyectos[0].url}}</a></span>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngFor="let proyecto of listaProyectos" class="carousel-item" data-bs-interval="2000">
+                <div *ngIf="modoEdit">
+                <i class="icon-copy fa fa-plus" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"
+                    style="cursor:pointer; cursor: hand"></i>
+                <a> | </a>
+                <i class="icon-copy fa fa-pencil" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
+                    style="cursor:pointer; cursor: hand"></i>
+                <a> | </a>
+                <i class="icon-copy fa fa-trash" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                    style="cursor:pointer; cursor: hand"></i>
+                </div>
+                <div class="item">
+                    <div class="portfolio-item">
+                        <div class="thumb" style="text-align:center;">
+                            <img style="height:500px; width:50%;" src="{{proyecto.url_imagen}}" alt="">
+                            <div class="carousel-caption d-none d-md-block">
+                                
+                            </div>
+                            <div class="hover-content"
+                                style="height:500px; width:50%;top:0;bottom:0;left: 0;right: 0;margin: auto;">
+                                <div class="inner-content">
+                                    <a href="#">
+                                        <h4>{{proyecto.titulo}}</h4>
+                                        <p>{{proyecto.descripcion}}</p>
+                                    </a>
+                                    <span><a href="{{proyecto.url}}">{{proyecto.url}}</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
+</div>

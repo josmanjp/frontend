@@ -1,0 +1,45 @@
+<header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Foto Inicio ***** -->
+                    
+                    <a href="index.html" class="logo">
+                            <h4><img [src]="miPortfolio.url_foto" alt=""
+                                style="width: 48px; height: 48px; border-radius: 20px;"> {{miPortfolio.nombre}} {{miPortfolio.apellido}} </h4>
+                    </a>
+                    
+                    <!-- ***** Foto ***** -->
+                    <!-- ***** Inicio de Menu ***** -->
+                    <ul class="nav">
+                        <li class="scroll-to-section"><a href="#top" class="active">Inicio</a></li>
+                        <li class="scroll-to-section"><a href="#features">Estudios</a></li>
+                        <li class="scroll-to-section"><a href="#about">Acerca de mi</a></li>
+                        <li class="scroll-to-section"><a href="#services">Servicios</a></li>
+                        <li class="scroll-to-section"><a href="#portfolio">Portfolio</a></li>
+                        <li class="scroll-to-section"><a href="#contact">Contactame</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="icon-copy fa fa-gear" aria-hidden="true"></i>
+                            </a>
+                            <ul class="dropdown-menu" style="background-color: rgba(37, 125, 119, 0.751) ;">
+                                <li>
+                                    <a *ngIf="!modoEdit" class="dropdown-item" href="login">Iniciar Sesión</a>
+                                </li>
+                                <li>
+                                    <a *ngIf="modoEdit" class="dropdown-item" href="">Cerrar Sesión</a>
+                                </li>                                                                
+                            </ul>
+                        </li>
+                    </ul>                    
+                    <a class='menu-trigger'>
+                        <span>Menu</span>                        
+                    </a>
+
+                    <!-- ***** Fin del Menu ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,46 @@
+<div id="services" class="our-services section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                    <h6>Servicios</h6>
+                    <h2>Descubre <span>qué ofrezco</span> a mis <em>Clientes</em></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div *ngFor="let servicio of listaServicios"  class="col-lg-4">
+                <div *ngIf="modoEdit">
+                <i class="icon-copy fa fa-plus" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"
+                    style="cursor:pointer; cursor: hand"></i>
+                <a> | </a>
+                <i class="icon-copy fa fa-pencil" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
+                    style="cursor:pointer; cursor: hand"></i>
+                <a> | </a>
+                <i class="icon-copy fa fa-trash" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                    style="cursor:pointer; cursor: hand"></i>
+                </div>
+                
+                <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                    
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="icon">
+                                <img src="{{servicio.url_imagen}}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="right-content">
+                                <h4>{{servicio.titulo}}</h4>
+                                <p>{{servicio.descripcion}}</p>
+                                <p>{{servicio.url}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
