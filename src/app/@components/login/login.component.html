@@ -15,7 +15,10 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <fieldset>
-                                        <input class="form-control"  formControlName="correo" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" type="text" name="correo" id="correo" pattern="[^ @]*@[^ @]*"
+                                        <input class="form-control"  formControlName="correo" 
+                                        [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 
+                                        'is-valid': !Email?.errors && Email?.touched}" 
+                                        type="text" name="correo" id="correo" pattern="[^ @]*@[^ @]*"
                                             placeholder="Email" required="">
                                         <div *ngIf="Email?.hasError && Email?.touched">
                                             <p *ngIf="Email?.hasError('required')" class="text-danger">
@@ -31,7 +34,7 @@
                                     <fieldset>
                                         <input class="form-control" formControlName="contrasena" type="subject" name="contrasena"  [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}"id="contrasena" placeholder="Contraseña"
                                             autocomplete="on">
-                                        <div *ngIf="Password?.hasError && Email?.touched">
+                                        <div *ngIf="Password?.hasError && Password?.touched">
                                             <p *ngIf="Password?.hasError('required')" class="text-danger">
                                                 La Contraseña es Requerida
                                             </p>

@@ -6,6 +6,8 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AutenticacionService {
+  //url = 'http://localhost:8080/autenticacion/login';
+  //url = 'https://portfolio-8mt5.onrender.com/autenticacion/login';
   url = 'http://localhost:8080/autenticacion/login';
   currentUserSubject: BehaviorSubject<any>;
   

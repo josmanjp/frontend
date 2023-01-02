@@ -1,0 +1,109 @@
+{
+    "nombre": "JOSMAN JOSE",
+    "apellido": "PEREZ",
+    "correo": "josmanjp@gmail.com",
+    "telefono": "+5491135124243",
+    "domicilio": "CABA Argentina",
+    "titulo": "Programador de Apps en Windows y Web Full Stack Jr.",
+    "url_foto": "assets/images/profile-pic.png",
+    "estado": "Disponible",
+    "precios": "A Acordar",
+    "soporte":"24/7",
+    "sobre_mi" : "Soy TSU en Informatica especializado en Programacion de sistemas administarticos para windows, actualmente ampliando conocimientos a la programación web y aplicaciones moviles, tengo 19 años de experiencia y multiples proyectos terminados en uso",
+    "estudios": [
+        {
+        "id": 1,
+        "titulo":"Mi Carrera",
+        "descripcion": "T.S.U Informatica. Instituto Universitario de Tecnología de los LLanos. Venezuela. Año 2002",
+        "url_imagen" : "assets/images/features-icon-black-01.png"
+        },
+        {
+            "id": 2,
+            "titulo":"Windows",
+            "descripcion": "Especialista en Desarrollo de Sistemas Administrativos en ambiente Windows. Visual Basic 6.0 y .net. Autodidacta",
+            "url_imagen" : "assets/images/features-icon-black-02.png"
+
+        },
+        {
+            "id": 3,
+            "titulo":"Aplicaciones Web",
+            "descripcion": "Aplicaciones Web. PHP - Mysql - HTMl- CSS. Autodidacta",
+            "url_imagen" : "assets/images/features-icon-black-01.png"
+
+        },
+        {
+            "id": 4,
+            "titulo":"Aplicaciones Moviles",
+            "descripcion": "Integracion de aplicaciones web en ambiente Android",
+            "url_imagen" : "assets/images/features-icon-black-02.png"
+        }
+    ],
+    "experiencia": [
+        {
+        "id": 1,    
+        "porcentaje": "50",
+        "titulo":"Vb 6.0"
+        },
+        {
+            "id": 2,    
+            "porcentaje": 70,
+            "titulo":"Vb. net"
+        },
+        {
+            "id": 3,    
+            "porcentaje": 100,
+            "titulo":"PHP/Mysql"
+
+        },
+        {
+            "id": 4,    
+            "porcentaje": 80,
+            "titulo":"android Studio"
+        }
+    ],
+    "servicios": [
+        {
+        "id": 1,
+        "titulo":"Desarrollo de Sistemas Windows",
+        "descripcion": "Desarrollo de Sistemas administrativos para control de inventario, hoteles, restaurantes, etc",
+        "url_imagen" : "assets/images/service-icon-01.png"
+        },
+        {
+            "id": 2,
+            "titulo":"Paginas Web",
+            "descripcion": "Diseño y desaroolo de paginas web para todo tipo de negocios",
+            "url_imagen" : "assets/images/service-icon-02.png"
+        },
+        {
+            "id": 3,
+            "titulo":"Redes",
+            "descripcion": "Instalacion y configuiracionnde redes en ambiente windos",
+            "url_imagen" : "    "
+        }
+    ],
+    "proyectos": [
+        {
+        "id": 1,
+        "titulo":"SIFX3",
+        "descripcion": "Sistema de Inventario y Facturacion",
+        "url_imagen" : "assets/images/sifx3.png",
+        "url" : "https://sifx3.com/"
+
+        },
+        {
+            "id": 2,
+            "titulo":"CAMBIOS RAPIPAGOS",
+            "descripcion": "App andorid y pagina web para control de remesas",
+            "url_imagen" : "assets/images/rapipagos.jpg",
+            "url" : "https://cambiosrapipagos.com/"
+        },
+        {
+            "id": 3,
+            "titulo":"CAMBIOS JG",
+            "descripcion": "App andorid y pagina web para control de remesas",
+            "url_imagen" : "assets/images/cambiosjg.png",
+            "url" : "https://cambiosjg.com/"
+        }
+    ]        
+
+}

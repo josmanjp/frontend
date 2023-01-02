@@ -4,7 +4,12 @@
             <div class="col-lg-12">
                 <div class="features-content">
                     <div class="row">
-                        <div *ngFor="let estudios of listaEstudios" class="col-lg-3">
+                        <div *ngIf="modoEdit">
+                            <i type="button" class="icon-copy fa fa-plus" data-bs-toggle="modal" data-bs-target="#modalAE" aria-hidden="true" data-placement="top" 
+                            title="Agregar" style="cursor:pointer; cursor: hand" (click)="datosPersona()"> 
+                            </i>    
+                        </div>
+                        <div *ngFor="let estudios of listaEstudios; index as a" class="col-lg-3">
 
                             <div class="features-item  wow fadeInUp" data-wow-duration="1s"
                                 data-wow-delay="2s">                        
@@ -17,14 +22,11 @@
                                 <p>{{estudios.descripcion}}</p>
                                 <div class="line-dec"></div>
                                 <div *ngIf="modoEdit">
-                                <i class="icon-copy fa fa-plus" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"
-                                    style="cursor:pointer; cursor: hand"></i>
+                                <i class="icon-copy fa fa-pencil" data-bs-toggle="modal" data-bs-target="#modalME" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
+                                    style="cursor:pointer; cursor: hand" (click)="datosEditEstu(a)"></i>
                                 <a> | </a>
-                                <i class="icon-copy fa fa-pencil" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
-                                    style="cursor:pointer; cursor: hand"></i>
-                                <a> | </a>
-                                <i class="icon-copy fa fa-trash" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
-                                    style="cursor:pointer; cursor: hand"></i>
+                                <i class="icon-copy fa fa-trash" data-bs-toggle="modal" data-bs-target="#modalEE"   aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                                    style="cursor:pointer; cursor: hand" (click)="datosEliEstu(a)"></i>
                                 </div>
                             </div>
                         </div>
@@ -69,3 +71,170 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalAE" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Estudios</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <form [formGroup]="form" id="modAgregar" (ngSubmit)="onAgregar($event)">
+            <div class="form-group">
+                <div  hidden class="form-group">
+                    <label for="personaId">ID</label>
+                    <input type="number" formControlName="id" class="form-control" [(ngModel)]="idEstudio" id="id">                 
+                </div>                   
+                <label for="titulo">Título</label>
+                <input type="text"  formControlName="titulo" [ngClass]="{'is-invalid': Titulo?.errors && Titulo?.touched, 
+                'is-valid': !Titulo?.errors && Titulo?.touched}"  class="form-control"  id="titulo" placeholder="Ingresa el título">
+                <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                    <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                        El titulo es requerido
+                    </p>
+                    <p *ngIf="Titulo?.hasError('minlength')" class="text-danger">
+                        Debe ingresar mínimo 5 caracteres
+                    </p>
+                    <p *ngIf="Titulo?.hasError('maxlength')" class="text-danger">
+                        Debe ingresar máximo 100 caracteres
+                    </p>                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="titulo">Descripción</label>
+                <input type="text" formControlName="descripcion"  class="form-control" id="descripcion" placeholder="Ingresa la descripción" [ngClass]="{'is-invalid': Descripcion?.errors && Descripcion?.touched, 
+                'is-valid': !Descripcion?.errors && Descripcion?.touched}">
+                <div *ngIf="Descripcion?.hasError && Descripcion?.touched">
+                    <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                        La Descripción es Requerida
+                    </p>
+                    <p *ngIf="Descripcion?.hasError('minlength')" class="text-danger">
+                        Debe ingresar mínimo 5 caracteres
+                    </p>
+                    <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                        Debe ingresar máximo 100 caracteres
+                    </p>                    
+                </div>                
+            </div>
+
+            <div class="form-group">
+                <label for="urlImagen">Imagen</label>
+                <input type="url" formControlName="url_imagen"  class="form-control" id="url_imagen" placeholder="Ingresa la URL de la imagen" [ngClass]="{'is-invalid': UrlImagen?.errors && UrlImagen?.touched, 
+                'is-valid': !UrlImagen?.errors && UrlImagen?.touched}" >
+                <div *ngIf="UrlImagen?.hasError && UrlImagen?.touched">
+                    <p *ngIf="UrlImagen?.hasError('pattern')" class="text-danger">
+                        La Url de la imagen es requerida
+                    </p>      
+                </div>                
+            </div>
+            <div hidden class="form-group">
+                <label for="personaId">Persona</label>
+                <input type="number" formControlName="personaId" #personaId class="form-control" [(ngModel)]="idPersona" id="personaId">                 
+            </div>            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                <button type="submit" class="btn btn-primary" [hidden]="isupdated">Guardar</button>
+              </div>        
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalME" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar Estudios</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="form" id="modEditarEstu" (ngSubmit)="onAgregar($event)">
+                <div class="form-group">
+                    <label for="personaId">ID</label>
+                    <input type="number" formControlName="id" class="form-control" [(ngModel)]="idEstudio" id="id">                 
+                </div>   
+                <div class="form-group">                
+                  <label for="titulo">Título</label>
+                  <input type="text"  formControlName="titulo" [(ngModel)]="titEstudio" [ngClass]="{'is-invalid': Titulo?.errors && Titulo?.touched, 
+                  'is-valid': !Titulo?.errors && Titulo?.touched}"  class="form-control"  id="titulo" placeholder="Ingresa el título">
+                  <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                      <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                          El titulo es requerido
+                      </p>
+                      <p *ngIf="Titulo?.hasError('minlength')" class="text-danger">
+                          Debe ingresar mínimo 5 caracteres
+                      </p>
+                      <p *ngIf="Titulo?.hasError('maxlength')" class="text-danger">
+                          Debe ingresar máximo 100 caracteres
+                      </p>                    
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="titulo">Descripción</label>
+                  <input type="text" formControlName="descripcion" [(ngModel)]="desEstudio"  class="form-control" id="descripcion" placeholder="Ingresa la descripción" [ngClass]="{'is-invalid': Descripcion?.errors && Descripcion?.touched, 
+                  'is-valid': !Descripcion?.errors && Descripcion?.touched}">
+                  <div *ngIf="Descripcion?.hasError && Descripcion?.touched">
+                      <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                          La Descripción es Requerida
+                      </p>
+                      <p *ngIf="Descripcion?.hasError('minlength')" class="text-danger">
+                          Debe ingresar mínimo 5 caracteres
+                      </p>
+                      <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                          Debe ingresar máximo 100 caracteres
+                      </p>                    
+                  </div>                
+              </div>
+  
+              <div class="form-group">
+                  <label for="urlImagen">Imagen</label>
+                  <input type="url" formControlName="url_imagen" [(ngModel)]="urlEstudio"  class="form-control" id="url_imagen" placeholder="Ingresa la URL de la imagen" [ngClass]="{'is-invalid': UrlImagen?.errors && UrlImagen?.touched, 
+                  'is-valid': !UrlImagen?.errors && UrlImagen?.touched}" >
+                  <div *ngIf="UrlImagen?.hasError && UrlImagen?.touched">
+                      <p *ngIf="UrlImagen?.hasError('pattern')" class="text-danger">
+                          La Url de la imagen es requerida
+                      </p>      
+                  </div>                
+              </div>
+              <div hidden class="form-group">
+                  <label for="personaId">Persona</label>
+                  <input type="number" formControlName="personaId" class="form-control" [(ngModel)]="idPersona" id="personaId">                 
+              </div>            
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                  <button type="submit" class="btn btn-primary" [hidden]="isupdated">Guardar</button>
+                </div>        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalEE" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Estudio</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form [formGroup]="form" id="modEliEstu" (ngSubmit)="onEliminar(idEstudio)">
+                <div class="form-group">
+                    <label for="id">ID</label>
+                    <input type="number" formControlName="id" class="form-control" [(ngModel)]="idEstudio" id="id" readonly>                 
+                </div>   
+                <div class="form-group">                
+                  <label for="titulo">Título</label>
+                  <input type="text"  formControlName="titulo" class="form-control" [(ngModel)]="titEstudio" id ="titulo" readonly>
+              </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="submit" class="btn btn-primary">Eliminar</button>
+                </div>        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
