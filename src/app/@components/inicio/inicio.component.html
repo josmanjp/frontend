@@ -1,13 +1,12 @@
-<div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+<div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s" style="margin-top: 10px;">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-6 align-self-center">
                         <div *ngIf="modoEdit">
-                            <i  class="icon-copy fa fa-plus" href ="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar" style ="cursor:pointer; cursor: hand"></i>
-                            <a> | </a>
-                            <i class="icon-copy fa fa-pencil" href ="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar" style ="cursor:pointer; cursor: hand"></i>
+                            <i class="icon-copy fa fa-pencil" data-bs-toggle="modal" data-bs-target="#modalMPE" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
+                                    style="cursor:pointer; cursor: hand" (click)="datosEditPers()"></i>
                         </div>
                         <div class="left-content header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
                             <div class="row">
@@ -53,3 +52,221 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalMPE" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar datos de Persona</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="changeisUpdate()"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="form" id="modEditarPers" (ngSubmit)="onAgregar($event)">
+                <div class="form-group">
+                    <label for="personaId">ID</label>
+                    <input type="number" formControlName="id" class="form-control" [(ngModel)]="idPersona" id="id" readonly>                 
+                </div>   
+                <div class="form-group">                
+                    <label for="nombre">Nombre</label>
+                    <input type="text" maxlength="100"  formControlName="nombre" [(ngModel)]="nomPersona" [ngClass]="{'is-invalid': Nombre?.errors && Nombre?.touched, 
+                    'is-valid': !Nombre?.errors && Nombre?.touched}"  class="form-control"  id="nombre" placeholder="Ingresa el Nombre">
+                    <div *ngIf="Nombre?.hasError && Nombre?.touched">
+                        <p *ngIf="Nombre?.hasError('required')" class="text-danger">
+                            El Nombre es requerido
+                        </p>
+                        <p *ngIf="Nombre?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Nombre?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 100 caracteres
+                        </p>                    
+                    </div>
+                </div>    
+                <div class="form-group">                
+                    <label for="apellido">Apellido</label>
+                    <input type="text" maxlength="100"  formControlName="apellido" [(ngModel)]="apePersona" [ngClass]="{'is-invalid': Apellido?.errors && Apellido?.touched, 
+                    'is-valid': !Apellido?.errors && Apellido?.touched}"  class="form-control"  id="apellido" placeholder="Ingresa el Apellido">
+                    <div *ngIf="Apellido?.hasError && Apellido?.touched">
+                        <p *ngIf="Apellido?.hasError('required')" class="text-danger">
+                            El Apellido es requerido
+                        </p>
+                        <p *ngIf="Apellido?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Apellido?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 100 caracteres
+                        </p>                    
+                    </div>
+                </div>    
+                <div class="form-group">
+                    <label for="domicilio">Domicilio</label>
+                    <textarea type="text" rows="2" maxlength="255" formControlName="domicilio" [(ngModel)]="domPersona"  class="form-control spaw" id="sobre_mi" placeholder="" [ngClass]="{'is-invalid': Domicilio?.errors && Domicilio?.touched, 
+                    'is-valid': !Domicilio?.errors && Domicilio?.touched}"></textarea>
+                    <div *ngIf="Domicilio?.hasError && Domicilio?.touched">
+                        <p *ngIf="Domicilio?.hasError('required')" class="text-danger">
+                            El Domicilio es Requerida
+                        </p>
+                        <p *ngIf="Domicilio?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Domicilio?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 255 caracteres
+                        </p>                    
+                    </div>                
+                </div>                                
+                <div class="form-group">                
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" minlength="11" maxlength="20"  formControlName="telefono" [(ngModel)]="telPersona" [ngClass]="{'is-invalid': Telefono?.errors && Telefono?.touched, 
+                    'is-valid': !Telefono?.errors && Telefono?.touched}"  class="form-control"  id="telefono" placeholder="Ingresa el Telefono">
+                    <div *ngIf="Telefono?.hasError && Telefono?.touched">
+                        <p *ngIf="Telefono?.hasError('required')" class="text-danger">
+                            El Telefono es requerido
+                        </p>
+                        <p *ngIf="Telefono?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 11 caracteres
+                        </p>
+                        <p *ngIf="Apellido?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 20 caracteres
+                        </p>                    
+                    </div>
+                </div>       
+                
+                <div class="form-group">                
+                    <label for="correo">Correo</label>
+                    <input type="email" maxlength="250"  formControlName="correo" [(ngModel)]="corPersona" [ngClass]="{'is-invalid': Correo?.errors && Correo?.touched, 
+                    'is-valid': !Correo?.errors && Correo?.touched}"  class="form-control"  id="correo" placeholder="Ingresa el Correo">
+                    <div *ngIf="Correo?.hasError && Correo?.touched">
+                        <p *ngIf="Correo?.hasError('required')" class="text-danger">
+                            El Correo es requerido
+                        </p>
+                        <p *ngIf="Correo?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Correo?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 250 caracteres
+                        </p>    
+                        <p *ngIf="Correo?.hasError('email')" class="text-danger">
+                            El formato de email debe ser válido
+                        </p>
+
+                    </div>
+                </div>  
+                <div class="form-group">   
+                    <label for="correo">Contraseña </label> <a style="margin-left: 10px;"> <i  title="Ver Contraseña" style="cursor:pointer; cursor: hand"  #icono id="show-hide-btn" class="fa fa-eye" aria-hidden="true" (click)="togglePasswordVisibility(password, icono)"></i> </a>
+                    <input  #password type="password" class="form-control" formControlName="contrasena" [(ngModel)]="conPersona" name="contrasena"  [ngClass]="{'is-invalid': Contrasena?.errors && Contrasena?.touched, 'is-valid': !Contrasena?.errors && Contrasena?.touched}"id="contrasena" placeholder="Contraseña"
+                    autocomplete="on">                                                
+                        <div *ngIf="Contrasena?.hasError && Contrasena?.touched">
+                            <p *ngIf="Contrasena?.hasError('required')" class="text-danger">
+                                La Contraseña es Requerida
+                            </p>
+                            <p *ngIf="Contrasena?.hasError('minlength')" class="text-danger">
+                                Debe ingresar minimo 8 caracteres
+                            </p>
+                        </div>  
+                </div>                          
+                <div class="form-group">                
+                    <label for="titulo">Título</label>
+                    <input type="text"  formControlName="titulo" [(ngModel)]="titPersona" [ngClass]="{'is-invalid': Titulo?.errors && Titulo?.touched, 
+                    'is-valid': !Titulo?.errors && Titulo?.touched}"  class="form-control"  id="titulo" placeholder="Ingresa el título">
+                    <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                        <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                            El titulo es requerido
+                        </p>
+                        <p *ngIf="Titulo?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Titulo?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 250 caracteres
+                        </p>                    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="titulo">Sobre mi</label>
+                    <textarea type="text" rows="5" maxlength="255" formControlName="sobre_mi" [(ngModel)]="somPersona"  class="form-control spaw" id="sobre_mi" placeholder="" [ngClass]="{'is-invalid': Sobremi?.errors && Sobremi?.touched, 
+                    'is-valid': !Sobremi?.errors && Sobremi?.touched}"></textarea>
+                    <div *ngIf="Sobremi?.hasError && Sobremi?.touched">
+                        <p *ngIf="Sobremi?.hasError('required')" class="text-danger">
+                            La Descripción es Requerida
+                        </p>
+                        <p *ngIf="Sobremi?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Sobremi?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 255 caracteres
+                        </p>                    
+                    </div>                
+                </div>
+
+                <div class="form-group">
+                    <label for="url_foto">Foto</label>
+                    <input type="url" formControlName="url_foto" [(ngModel)]="urlPersona"  class="form-control" id="url_foto" placeholder="Ingresa la URL de la imagen" [ngClass]="{'is-invalid': UrlFoto?.errors && UrlFoto?.touched, 
+                    'is-valid': !UrlFoto?.errors && UrlFoto?.touched}" >
+                    <div *ngIf="UrlFoto?.hasError && UrlFoto?.touched">
+                        <p *ngIf="UrlFoto?.hasError('pattern')" class="text-danger">
+                            La Url de la imagen es requerida
+                        </p>      
+                    </div>                
+                </div>
+
+                <div class="form-group">                
+                    <label for="estado">Estado</label>
+                    <input type="text" minlength="5" maxlength="20"  formControlName="estado" [(ngModel)]="estPersona" [ngClass]="{'is-invalid': Estado?.errors && Estado?.touched, 
+                    'is-valid': !Estado?.errors && Estado?.touched}"  class="form-control"  id="estado" placeholder="Ingresa el Estado">
+                    <div *ngIf="Estado?.hasError && Telefono?.touched">
+                        <p *ngIf="Estado?.hasError('required')" class="text-danger">
+                            El Estado del servicio es requerido
+                        </p>
+                        <p *ngIf="Estado?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Estado?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 20 caracteres
+                        </p>                    
+                    </div>
+                </div>       
+
+                <div class="form-group">                
+                    <label for="precios">Precios</label>
+                    <input type="text" minlength="5" maxlength="20"  formControlName="precios" [(ngModel)]="prePersona" [ngClass]="{'is-invalid': Precio?.errors && Precio?.touched, 
+                    'is-valid': !Precio?.errors && Precio?.touched}"  class="form-control"  id="precios" placeholder="Ingrese texto a mostrar para precios de servicios">
+                    <div *ngIf="Precio?.hasError && Precio?.touched">
+                        <p *ngIf="Precio?.hasError('required')" class="text-danger">
+                            El Precio del servicio es requerido
+                        </p>
+                        <p *ngIf="Precio?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Precio?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 20 caracteres
+                        </p>                    
+                    </div>
+                </div>       
+
+                <div class="form-group">                
+                    <label for="soporte">Soporte</label>
+                    <input type="text" minlength="4" maxlength="20"  formControlName="soporte" [(ngModel)]="sopPersona" [ngClass]="{'is-invalid': Soporte?.errors && Soporte?.touched, 
+                    'is-valid': !Soporte?.errors && Soporte?.touched}"  class="form-control"  id="soporte" placeholder="Describa forma de soporte de servicios">
+                    <div *ngIf="Soporte?.hasError && Soporte?.touched">
+                        <p *ngIf="Soporte?.hasError('required')" class="text-danger">
+                            El Soporte del servicio es requerido
+                        </p>
+                        <p *ngIf="Soporte?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 4 caracteres
+                        </p>
+                        <p *ngIf="Soporte?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 20 caracteres
+                        </p>                    
+                    </div>
+                </div>   
+
+                <div><br></div>         
+                  <div class="modal-footer">
+                    <p *ngIf="isupdated==true" class="text-success-emphasis">Registro Actualizado!!!</p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" [hidden]="isupdated">Guardar</button>
+                  </div>                   
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>

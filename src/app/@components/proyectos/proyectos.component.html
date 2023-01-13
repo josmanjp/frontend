@@ -10,66 +10,66 @@
         </div>
     </div>
 
+    <div style ="text-align: center;" *ngIf="modoEdit">
+        <i type="button" class="icon-copy fa fa-plus" data-bs-toggle="modal" data-bs-target="#modalAP" aria-hidden="true" data-placement="top" 
+        title="Agregar" style="cursor:pointer; cursor: hand" (click)="datosPersona()"> 
+        </i>    
+    </div>
 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-    <div style ="height: 500px;" class="carousel-inner">
-        <div class="col-lg-12">            
-            <div class="carousel-item active" data-bs-interval="2000">
-                <div *ngIf="modoEdit">
-                <i class="icon-copy fa fa-plus" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"
-                    style="cursor:pointer; cursor: hand"></i>
-                <a> | </a>
-                <i class="icon-copy fa fa-pencil" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
-                    style="cursor:pointer; cursor: hand"></i>
-                <a> | </a>
-                <i class="icon-copy fa fa-trash" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
-                    style="cursor:pointer; cursor: hand"></i>
-                </div>
+    <div style ="height: 100%;" class="carousel-inner">
+        <div class="col-lg-12">   
+            <div *ngIf="listaProyectos.length >0" class="carousel-item active" data-bs-interval="2000">
                 <div class="item">
                     <div class="portfolio-item">
                         <div class="thumb" style="text-align:center;">
-                            <img style="height:500px; width:50%;" src="{{listaProyectos[0].url_imagen}}" alt="">
+                            <img style="height: 100%; width:100%;" src="{{listaProyectos[0].url_imagen}}" alt="">
                             <div class="carousel-caption d-none d-md-block">
-
-                            </div>
-                            <div class="hover-content" style="height:500px; width:50%;top:0;bottom:0;left: 0;right: 0;margin: auto;">
+                            </div> 
+                           
+                            <div class="hover-content" style="height:100%; width:100%;top:0;bottom:0;left: 0;right: 0;margin: auto;">
                                 <div class="inner-content">
                                     <a href="#">
                                         <h4>{{listaProyectos[0].titulo}}</h4>        
                                         <p>{{listaProyectos[0].descripcion}}</p>
                                     </a>
                                     <span><a href="{{listaProyectos[0].url}}">{{listaProyectos[0].url}}</a></span>
+                                    <div *ngIf="modoEdit">
+                                        <i class="icon-copy fa fa-pencil" data-bs-toggle="modal" data-bs-target="#modalMP" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
+                                        style="cursor:pointer; cursor: hand" (click)="datosEditProy(0)"></i>
+                                    <a> | </a>
+                                    <i class="icon-copy fa fa-trash" data-bs-toggle="modal" data-bs-target="#modalEP"   aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                                        style="cursor:pointer; cursor: hand" (click)="datosEliProy(0)"></i>
+                                    </div>                                    
                                 </div>                            
-                            </div>
+                            </div>                         
                         </div>
                     </div>
                 </div>
             </div>
-            <div *ngFor="let proyecto of listaProyectos" class="carousel-item" data-bs-interval="2000">
-                <div *ngIf="modoEdit">
-                <i class="icon-copy fa fa-plus" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"
-                    style="cursor:pointer; cursor: hand"></i>
-                <a> | </a>
-                <i class="icon-copy fa fa-pencil" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
-                    style="cursor:pointer; cursor: hand"></i>
-                <a> | </a>
-                <i class="icon-copy fa fa-trash" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
-                    style="cursor:pointer; cursor: hand"></i>
-                </div>
+
+            <div *ngFor="let proyecto of listaProyectos, index as a" class="carousel-item"  data-bs-interval="2000">
                 <div class="item">
                     <div class="portfolio-item">
                         <div class="thumb" style="text-align:center;">
-                            <img style="height:500px; width:50%;" src="{{proyecto.url_imagen}}" alt="">
+                            <img style="height:100%; width:100%;" src="{{proyecto.url_imagen}}" alt="">
                             <div class="carousel-caption d-none d-md-block">
                                 
                             </div>
                             <div class="hover-content"
-                                style="height:500px; width:50%;top:0;bottom:0;left: 0;right: 0;margin: auto;">
+                                style="height:100%; width:100%;top:0;bottom:0;left: 0;right: 0;margin: auto;">
                                 <div class="inner-content">
                                     <a href="#">
                                         <h4>{{proyecto.titulo}}</h4>
                                         <p>{{proyecto.descripcion}}</p>
                                     </a>
                                     <span><a href="{{proyecto.url}}">{{proyecto.url}}</a></span>
+                                    <div *ngIf="modoEdit">
+                                        <i class="icon-copy fa fa-pencil" data-bs-toggle="modal" data-bs-target="#modalMP" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
+                                        style="cursor:pointer; cursor: hand" (click)="datosEditProy(a)"></i>
+                                    <a> | </a>
+                                    <i class="icon-copy fa fa-trash" data-bs-toggle="modal" data-bs-target="#modalEP"   aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                                        style="cursor:pointer; cursor: hand" (click)="datosEliProy(a)"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -78,12 +78,205 @@
             </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <button *ngIf="listaProyectos.length >0" class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Anterior</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <button *ngIf="listaProyectos.length >0" class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Siguiente</span>
     </button>
 </div>
+
+<div class="modal fade" id="modalAP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Proyecto</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="changeisUpdate()"></button>
+        </div>
+        <div class="modal-body">
+              <form [formGroup]="form" id="modAgregar" (ngSubmit)="onAgregar($event)">
+                  <div  hidden class="form-group">
+                      <label for="personaId">ID</label>
+                      <input type="number" formControlName="id" class="form-control" [(ngModel)]="idProyecto" id="id">                 
+                  </div>   
+                  <div class="form-group">              
+                  <label for="titulo">Título</label>
+                  <input type="text"  formControlName="titulo" [(ngModel)]="titProyecto"  [ngClass]="{'is-invalid': Titulo?.errors && Titulo?.touched, 
+                  'is-valid': !Titulo?.errors && Titulo?.touched}"  class="form-control"  id="titulo" placeholder="Ingresa el título">
+                  <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                      <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                          El titulo es requerido
+                      </p>
+                      <p *ngIf="Titulo?.hasError('minlength')" class="text-danger">
+                          Debe ingresar mínimo 5 caracteres
+                      </p>
+                      <p *ngIf="Titulo?.hasError('maxlength')" class="text-danger">
+                          Debe ingresar máximo 250 caracteres
+                      </p>                    
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="titulo">Descripción</label>
+                  <input type="text" formControlName="descripcion" [(ngModel)]="desProyecto"   class="form-control" id="descripcion" placeholder="Ingresa la descripción" [ngClass]="{'is-invalid': Descripcion?.errors && Descripcion?.touched, 
+                  'is-valid': !Descripcion?.errors && Descripcion?.touched}">
+                  <div *ngIf="Descripcion?.hasError && Descripcion?.touched">
+                      <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                          La Descripción es Requerida
+                      </p>
+                      <p *ngIf="Descripcion?.hasError('minlength')" class="text-danger">
+                          Debe ingresar mínimo 5 caracteres
+                      </p>
+                      <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                          Debe ingresar máximo 250 caracteres
+                      </p>                    
+                  </div>                
+              </div>
+  
+              <div class="form-group">
+                  <label for="urlImagen">Imagen</label>
+                  <input type="url" formControlName="url_imagen" [(ngModel)]="urlImagen"   class="form-control" id="url_imagen" placeholder="Ingresa la URL de la imagen" [ngClass]="{'is-invalid': UrlImagen?.errors && UrlImagen?.touched, 
+                  'is-valid': !UrlImagen?.errors && UrlImagen?.touched}" >
+                  <div *ngIf="UrlImagen?.hasError && UrlImagen?.touched">
+                      <p *ngIf="UrlImagen?.hasError('pattern')" class="text-danger">
+                          La Url de la imagen es requerida
+                      </p>      
+                  </div>                
+              </div>
+              <div class="form-group">
+                <label for="urlImagen">URL</label>
+                <input type="url" formControlName="url" [(ngModel)]="urlProy"  class="form-control" id="url" placeholder="Ingresa la URL del proyecto" [ngClass]="{'is-invalid': Urlproyecto?.errors && Urlproyecto?.touched, 
+                'is-valid': !Urlproyecto?.errors && Urlproyecto?.touched}" >
+                <div *ngIf="Urlproyecto?.hasError && Urlproyecto?.touched">
+                    <p *ngIf="Urlproyecto?.hasError('pattern')" class="text-danger">
+                        La Url de la imagen es requerida
+                    </p>      
+                </div>   
+            </div>                                                    
+              <div hidden class="form-group">
+                  <label for="personaId">Persona</label>
+                  <input type="number" formControlName="personaId" #personaId class="form-control" [(ngModel)]="idPersona" id="personaId">                 
+              </div>  
+              <div><br></div>            
+              <div class="modal-footer">
+                  <p *ngIf="isupdated==true" class="text-success-emphasis">Registro Agregado!!!</p>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                  <button type="submit" class="btn btn-primary" [hidden]="isupdated">Guardar</button>
+                </div>        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="modalMP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar Proyecto</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="changeisUpdate()"></button>
+          </div>
+          <div class="modal-body">
+              <form [formGroup]="form" id="modEditarProy" (ngSubmit)="onAgregar($event)">
+                  <div class="form-group">
+                      <label for="personaId">ID</label>
+                      <input type="number" formControlName="id" class="form-control" [(ngModel)]="idProyecto" id="id">                 
+                  </div>   
+                  <div class="form-group">                
+                    <label for="titulo">Título</label>
+                    <input type="text"  formControlName="titulo" [(ngModel)]="titProyecto" [ngClass]="{'is-invalid': Titulo?.errors && Titulo?.touched, 
+                    'is-valid': !Titulo?.errors && Titulo?.touched}"  class="form-control"  id="titulo" placeholder="Ingresa el título">
+                    <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                        <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                            El titulo es requerido
+                        </p>
+                        <p *ngIf="Titulo?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Titulo?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 250 caracteres
+                        </p>                    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="titulo">Descripción</label>
+                    <input type="text" formControlName="descripcion" [(ngModel)]="desProyecto"  class="form-control" id="descripcion" placeholder="Ingresa la descripción" [ngClass]="{'is-invalid': Descripcion?.errors && Descripcion?.touched, 
+                    'is-valid': !Descripcion?.errors && Descripcion?.touched}">
+                    <div *ngIf="Descripcion?.hasError && Descripcion?.touched">
+                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                            La Descripción es Requerida
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 250 caracteres
+                        </p>                    
+                    </div>                
+                </div>
+    
+                <div class="form-group">
+                    <label for="urlImagen">Imagen</label>
+                    <input type="url" formControlName="url_imagen" [(ngModel)]="urlImagen"  class="form-control" id="url_imagen" placeholder="Ingresa la URL de la imagen" [ngClass]="{'is-invalid': UrlImagen?.errors && UrlImagen?.touched, 
+                    'is-valid': !UrlImagen?.errors && UrlImagen?.touched}" >
+                    <div *ngIf="UrlImagen?.hasError && UrlImagen?.touched">
+                        <p *ngIf="UrlImagen?.hasError('pattern')" class="text-danger">
+                            La Url de la imagen es requerida
+                        </p>      
+                    </div>                
+                </div>
+                <div class="form-group">
+                    <label for="urlImagen">URL</label>
+                    <input type="url" formControlName="url" [(ngModel)]="urlProy"  class="form-control" id="url" placeholder="Ingresa la URL del proyecto" [ngClass]="{'is-invalid': Urlproyecto?.errors && Urlproyecto?.touched, 
+                    'is-valid': !Urlproyecto?.errors && Urlproyecto?.touched}" >
+                    <div *ngIf="Urlproyecto?.hasError && Urlproyecto?.touched">
+                        <p *ngIf="Urlproyecto?.hasError('pattern')" class="text-danger">
+                            La Url de la imagen es requerida
+                        </p>      
+                    </div>   
+                </div>                                                    
+                <div hidden class="form-group">
+                    <label for="personaId">Persona</label>
+                    <input type="number" formControlName="personaId" class="form-control" [(ngModel)]="idPersona" id="personaId">                 
+                </div>     
+                <div><br></div>         
+                <div class="modal-footer">
+                    <p *ngIf="isupdated==true" class="text-success-emphasis">Registro Actualizado!!!</p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" [hidden]="isupdated">Guardar</button>
+                  </div>        
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="modal fade" id="modalEP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Proyecto</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          <form [formGroup]="form" id="modEliProy" (ngSubmit)="onEliminar(idProyecto)">
+                  <div class="form-group">
+                      <label for="id">ID</label>
+                      <input type="number" formControlName="id" class="form-control" [(ngModel)]="idProyecto" id="id" readonly>                 
+                  </div>   
+                  <div class="form-group">                
+                    <label for="titulo">Título</label>
+                    <input type="text"  formControlName="titulo" class="form-control" [(ngModel)]="titProyecto" id ="titulo" readonly>
+                </div>
+                <div><br></div>  
+                  <div class="modal-footer">
+                      <p *ngIf="isupdated==true" class="text-success-emphasis">Registro Eliminado</p>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                      <button type="submit" class="btn btn-danger" [hidden]="isupdated">Eliminar</button>
+                  </div>        
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

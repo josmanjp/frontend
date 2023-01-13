@@ -10,7 +10,7 @@ export class FooterComponent implements OnInit {
   constructor(private datosPortfolio:PortfolioService) { }
 
   ngOnInit(): void {
-    this.datosPortfolio.obtenerDatos().subscribe( data=>{
+    this.datosPortfolio.obtenerDatos("ver/personas").subscribe( data=>{
       this.miPortfolio = data[0];
     });
   }

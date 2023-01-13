@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.25s">
-                <form id="contact" action="" method="post">
+                <form  [formGroup]="form" id="contact" (ngSubmit)="onEnviar($event)">
                     <div class="row">
                         <div class="col-lg-6 offset-lg-3">
                             <div class="section-heading">
@@ -15,32 +15,71 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <fieldset>
-                                        <input type="name" name="name" id="name" placeholder="Nombre" autocomplete="on"
-                                            required>
+                                        <input type="text" formControlName="nombre" name="nombre" id="nombre" placeholder="Nombre" autocomplete="on"
+                                        [ngClass]="{'is-invalid': Nombre?.errors && Nombre?.touched, 
+                                        'is-valid': !Nombre?.errors && Nombre?.touched}"  required>
+                                        <div *ngIf="Nombre?.hasError && Nombre?.touched">
+                                            <p *ngIf="Nombre?.hasError('required')" class="text-danger">
+                                                El Nombre es requerido
+                                            </p>
+                                            <p *ngIf="Nombre?.hasError('minlength')" class="text-danger">
+                                                Debe ingresar mínimo 5 caracteres
+                                            </p>
+                                            <p *ngIf="Nombre?.hasError('maxlength')" class="text-danger">
+                                                Debe ingresar máximo 250 caracteres
+                                            </p>                    
+                                        </div>                                        
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-6">
                                     <fieldset>
-                                        <input type="surname" name="surname" id="surname" placeholder="Apellido"
-                                            autocomplete="on" required>
-                                    </fieldset>
-                                </div>
-                                <div class="col-lg-6">
-                                    <fieldset>
-                                        <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*"
-                                            placeholder="Tu Email" required="">
-                                    </fieldset>
-                                </div>
-                                <div class="col-lg-6">
-                                    <fieldset>
-                                        <input type="subject" name="subject" id="subject"
-                                            placeholder="Asunto" autocomplete="on" >
+                                        <input type="text" formControlName="email" name="email" id="email" pattern="[^ @]*@[^ @]*"
+                                            placeholder="Tu Email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 
+                                            'is-valid': !Email?.errors && Email?.touched}"  required>
+                                            <div *ngIf="Email?.hasError && Email?.touched">
+                                                <p *ngIf="Email?.hasError('required')" class="text-danger">
+                                                    El Email es Requerido
+                                                </p>
+                                                <p *ngIf="Email?.hasError('email')" class="text-danger">
+                                                    El formato de email debe ser válido
+                                                </p>
+                                            </div>                                            
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-12">
                                     <fieldset>
-                                        <textarea name="message" type="text" class="form-control" id="message"
-                                            placeholder="Mensaje" required=""></textarea>
+                                        <input type="text" formControlName="asunto" name="asunto" id="asunto"
+                                            placeholder="Asunto" autocomplete="on" [ngClass]="{'is-invalid': Asunto?.errors && Asunto?.touched, 
+                                            'is-valid': !Asunto?.errors && Asunto?.touched}" required>
+                                            <div *ngIf="Asunto?.hasError && Asunto?.touched">
+                                                <p *ngIf="Asunto?.hasError('required')" class="text-danger">
+                                                    El Asunto es requerido
+                                                </p>
+                                                <p *ngIf="Asunto?.hasError('minlength')" class="text-danger">
+                                                    Debe ingresar mínimo 5 caracteres
+                                                </p>
+                                                <p *ngIf="Asunto?.hasError('maxlength')" class="text-danger">
+                                                    Debe ingresar máximo 100 caracteres
+                                                </p>                    
+                                            </div>                                                                                    
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-12">
+                                    <fieldset>
+                                        <textarea name="mensaje" formControlName="mensaje" type="text" class="form-control" id="mensaje"
+                                            placeholder="Mensaje" [ngClass]="{'is-invalid': Mensaje?.errors && Mensaje?.touched, 
+                                            'is-valid': !Mensaje?.errors && Mensaje?.touched}" required></textarea>
+                                            <div *ngIf="Mensaje?.hasError && Mensaje?.touched">
+                                                <p *ngIf="Mensaje?.hasError('required')" class="text-danger">
+                                                    El Mensaje es requerido
+                                                </p>
+                                                <p *ngIf="Mensaje?.hasError('minlength')" class="text-danger">
+                                                    Debe ingresar mínimo 5 caracteres
+                                                </p>
+                                                <p *ngIf="Mensaje?.hasError('maxlength')" class="text-danger">
+                                                    Debe ingresar máximo 250 caracteres
+                                                </p>                    
+                                            </div>                                                                                                                                
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-12">

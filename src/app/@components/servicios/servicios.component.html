@@ -11,16 +11,17 @@
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div *ngFor="let servicio of listaServicios"  class="col-lg-4">
+            <div *ngIf="modoEdit">
+                <i class="icon-copy fa fa-plus" data-bs-toggle="modal" data-bs-target="#modalAS" aria-hidden="true" data-placement="top" 
+                title="Agregar" style="cursor:pointer; cursor: hand" (click)="datosPersona()"></i>
+            </div>
+            <div *ngFor="let servicio of listaServicios, index as a"  class="col-lg-4">                
                 <div *ngIf="modoEdit">
-                <i class="icon-copy fa fa-plus" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Agregar"
-                    style="cursor:pointer; cursor: hand"></i>
-                <a> | </a>
-                <i class="icon-copy fa fa-pencil" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
-                    style="cursor:pointer; cursor: hand"></i>
-                <a> | </a>
-                <i class="icon-copy fa fa-trash" href="#" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
-                    style="cursor:pointer; cursor: hand"></i>
+                    <i class="icon-copy fa fa-pencil" data-bs-toggle="modal" data-bs-target="#modalMS" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Editar"
+                    style="cursor:pointer; cursor: hand" (click)="datosEditServ(a)"></i>
+                    <a> | </a>
+                    <i class="icon-copy fa fa-trash" data-bs-toggle="modal" data-bs-target="#modalES"   aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Eliminar"
+                    style="cursor:pointer; cursor: hand" (click)="datosEliServ(a)"></i>
                 </div>
                 
                 <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
@@ -44,3 +45,176 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalAS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Agregar Servicio</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="changeisUpdate()"></button>
+        </div>
+        <div class="modal-body">
+              <form [formGroup]="form" id="modAgregar" (ngSubmit)="onAgregar($event)">
+                  <div  hidden class="form-group">
+                      <label for="personaId">ID</label>
+                      <input type="number" formControlName="id" class="form-control" [(ngModel)]="idServicio" id="id">                 
+                  </div>   
+                  <div class="form-group">              
+                  <label for="titulo">Título</label>
+                  <input type="text"  formControlName="titulo" [(ngModel)]="titServicio" [ngClass]="{'is-invalid': Titulo?.errors && Titulo?.touched, 
+                  'is-valid': !Titulo?.errors && Titulo?.touched}"  class="form-control"  id="titulo" placeholder="Ingresa el título">
+                  <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                      <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                          El titulo es requerido
+                      </p>
+                      <p *ngIf="Titulo?.hasError('minlength')" class="text-danger">
+                          Debe ingresar mínimo 5 caracteres
+                      </p>
+                      <p *ngIf="Titulo?.hasError('maxlength')" class="text-danger">
+                          Debe ingresar máximo 250 caracteres
+                      </p>                    
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="titulo">Descripción</label>
+                  <input type="text" formControlName="descripcion" [(ngModel)]="desServicio" class="form-control" id="descripcion" placeholder="Ingresa la descripción" [ngClass]="{'is-invalid': Descripcion?.errors && Descripcion?.touched, 
+                  'is-valid': !Descripcion?.errors && Descripcion?.touched}">
+                  <div *ngIf="Descripcion?.hasError && Descripcion?.touched">
+                      <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                          La Descripción es Requerida
+                      </p>
+                      <p *ngIf="Descripcion?.hasError('minlength')" class="text-danger">
+                          Debe ingresar mínimo 5 caracteres
+                      </p>
+                      <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                          Debe ingresar máximo 250 caracteres
+                      </p>                    
+                  </div>                
+              </div>
+  
+              <div class="form-group">
+                  <label for="urlImagen">Imagen</label>
+                  <input type="url" formControlName="url_imagen" [(ngModel)]="urlSercicio"  class="form-control" id="url_imagen" placeholder="Ingresa la URL de la imagen" [ngClass]="{'is-invalid': UrlImagen?.errors && UrlImagen?.touched, 
+                  'is-valid': !UrlImagen?.errors && UrlImagen?.touched}" >
+                  <div *ngIf="UrlImagen?.hasError && UrlImagen?.touched">
+                      <p *ngIf="UrlImagen?.hasError('pattern')" class="text-danger">
+                          La Url de la imagen es requerida
+                      </p>      
+                  </div>                
+              </div>
+              <div hidden class="form-group">
+                  <label for="personaId">Persona</label>
+                  <input type="number" formControlName="personaId" #personaId class="form-control" [(ngModel)]="idPersona" id="personaId">                 
+              </div>  
+              <div><br></div>            
+              <div class="modal-footer">
+                  <p *ngIf="isupdated==true" class="text-success-emphasis">Registro Agregado!!!</p>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                  <button type="submit" class="btn btn-primary" [hidden]="isupdated">Guardar</button>
+                </div>        
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="modal fade" id="modalMS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modificar Servicio</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="changeisUpdate()"></button>
+          </div>
+          <div class="modal-body">
+              <form [formGroup]="form" id="modEditarEstu" (ngSubmit)="onAgregar($event)">
+                  <div class="form-group">
+                      <label for="personaId">ID</label>
+                      <input type="number" formControlName="id" class="form-control" [(ngModel)]="idServicio" id="id">                 
+                  </div>   
+                  <div class="form-group">                
+                    <label for="titulo">Título</label>
+                    <input type="text"  formControlName="titulo" [(ngModel)]="titServicio" [ngClass]="{'is-invalid': Titulo?.errors && Titulo?.touched, 
+                    'is-valid': !Titulo?.errors && Titulo?.touched}"  class="form-control"  id="titulo" placeholder="Ingresa el título">
+                    <div *ngIf="Titulo?.hasError && Titulo?.touched">
+                        <p *ngIf="Titulo?.hasError('required')" class="text-danger">
+                            El titulo es requerido
+                        </p>
+                        <p *ngIf="Titulo?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Titulo?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 250 caracteres
+                        </p>                    
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="titulo">Descripción</label>
+                    <input type="text" formControlName="descripcion" [(ngModel)]="desServicio"  class="form-control" id="descripcion" placeholder="Ingresa la descripción" [ngClass]="{'is-invalid': Descripcion?.errors && Descripcion?.touched, 
+                    'is-valid': !Descripcion?.errors && Descripcion?.touched}">
+                    <div *ngIf="Descripcion?.hasError && Descripcion?.touched">
+                        <p *ngIf="Descripcion?.hasError('required')" class="text-danger">
+                            La Descripción es Requerida
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('minlength')" class="text-danger">
+                            Debe ingresar mínimo 5 caracteres
+                        </p>
+                        <p *ngIf="Descripcion?.hasError('maxlength')" class="text-danger">
+                            Debe ingresar máximo 250 caracteres
+                        </p>                    
+                    </div>                
+                </div>
+    
+                <div class="form-group">
+                    <label for="urlImagen">Imagen</label>
+                    <input type="url" formControlName="url_imagen" [(ngModel)]="urlSercicio"  class="form-control" id="url_imagen" placeholder="Ingresa la URL de la imagen" [ngClass]="{'is-invalid': UrlImagen?.errors && UrlImagen?.touched, 
+                    'is-valid': !UrlImagen?.errors && UrlImagen?.touched}" >
+                    <div *ngIf="UrlImagen?.hasError && UrlImagen?.touched">
+                        <p *ngIf="UrlImagen?.hasError('pattern')" class="text-danger">
+                            La Url de la imagen es requerida
+                        </p>      
+                    </div>                
+                </div>
+                <div hidden class="form-group">
+                    <label for="personaId">Persona</label>
+                    <input type="number" formControlName="personaId" class="form-control" [(ngModel)]="idPersona" id="personaId">                 
+                </div>     
+                <div><br></div>         
+                <div class="modal-footer">
+                    <p *ngIf="isupdated==true" class="text-success-emphasis">Registro Actualizado!!!</p>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" [hidden]="isupdated">Guardar</button>
+                  </div>        
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="modal fade" id="modalES" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Servicio</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          <form [formGroup]="form" id="modEliEstu" (ngSubmit)="onEliminar(idServicio)">
+                  <div class="form-group">
+                      <label for="id">ID</label>
+                      <input type="number" formControlName="id" class="form-control" [(ngModel)]="idServicio" id="id" readonly>                 
+                  </div>   
+                  <div class="form-group">                
+                    <label for="titulo">Título</label>
+                    <input type="text"  formControlName="titulo" class="form-control" [(ngModel)]="titServicio" id ="titulo" readonly>
+                </div>
+                <div><br></div>  
+                  <div class="modal-footer">
+                      <p *ngIf="isupdated==true" class="text-success-emphasis">Registro Eliminado</p>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="changeisUpdate()">Cerrar</button>
+                      <button type="submit" class="btn btn-danger" [hidden]="isupdated">Eliminar</button>
+                  </div>        
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>

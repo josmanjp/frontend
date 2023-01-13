@@ -18,8 +18,23 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
+
+  togglePasswordVisibility(password: HTMLInputElement, icono : HTMLElement) {
+    // Alternar el atributo type del campo de contraseña
+    if (password.type === 'password') {
+      password.type = 'text';
+      icono.className='fa fa-eye-slash';
+      icono.setAttribute("title","Ocultar Contraseña");
+
+    } else {
+      password.type = 'password';
+      icono.className='fa fa-eye';
+      icono.setAttribute("title","Ver Contraseña");
+    }
+  }
 
   get Email() {
     return this.form.get('correo');
@@ -30,10 +45,31 @@ export class LoginComponent implements OnInit {
 
 
   onEnviar(event: Event) {
-    event.preventDefault;
-    this.autenticacionService.IniciarSesion(this.form.value).subscribe(data => { 
-      console.log("DATA:" + JSON.stringify(data));       
-    })       
-    this.ruta.navigate(['/portfolio']);
+    if (this.form.valid) {
+        event.preventDefault;
+        this.autenticacionService.IniciarSesion(this.form.value).subscribe(data => {               
+            if (data === null || data === undefined)
+            {
+              alert("Credenciales no validas");
+            }else{
+              this.ruta.navigate(['/portfolio/' + data.id]); 
+            }
+          },            
+          error => {
+              alert("Credenciales no validas " + error);
+          })             
+    }else {
+        sessionStorage.setItem('currentUser', "null");
+        sessionStorage.setItem('idUser', "0");
+        alert("Credenciales no validas");
+        
+    }
   }
+
+  onCerrar() {
+        sessionStorage.setItem('currentUser', "null");
+        sessionStorage.setItem('idUser', "0");  
+        this.ruta.navigate(['/portfolio']);
+  }
+  
 }
